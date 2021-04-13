@@ -1,0 +1,23 @@
+{
+  "name": "digtyarenko/osnova-php-sdk",
+  "description": "PHP SDK for Osnova API",
+  "type": "library",
+  "minimum-stability": "stable",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "digtyarenko",
+      "email": "vlad.digtyarenko@gmail.com"
+    }
+  ],
+  "require": {
+    "php": "^7.4",
+    "ext-json": "*",
+    "guzzlehttp/guzzle": "^7.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Osnova\\Api\\": "src"
+    }
+  }
+}
