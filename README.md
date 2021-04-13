@@ -72,7 +72,7 @@ $result = $subsiteService->getSubsiteTimeline(
 
 ## Лицензия
 
-The MIT License (MIT). Пожалуйста, просмотрите [файл лицензии](LICENSE.md) для более детальной информации.
+The MIT License (MIT). Пожалуйста, просмотрите [файл лицензии](LICENSE.md) для получения более детальной информации.
 
 [ico-version]: https://poser.pugx.org/digtyarenko/osnova-php-sdk/version?format=flat
 [link-packagist]: https://packagist.org/packages/digtyarenko/osnova-php-sdk
