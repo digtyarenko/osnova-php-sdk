@@ -1,5 +1,7 @@
 # PHP SDK для API Основы (TJ, vc.ru, DTF)
 
+[![Latest Version on Packagist][ico-version]][link-packagist]
+
 ## Требования
 Требуется PHP 7.4 или выше.
 
@@ -71,3 +73,6 @@ $result = $subsiteService->getSubsiteTimeline(
 ## Лицензия
 
 The MIT License (MIT). Пожалуйста, просмотрите [файл лицензии](LICENSE.md) для более детальной информации.
+
+[ico-version]: https://poser.pugx.org/digtyarenko/osnova-php-sdk/version?format=flat
+[link-packagist]: https://packagist.org/packages/digtyarenko/osnova-php-sdk
