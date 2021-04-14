@@ -12,7 +12,7 @@ use Osnova\Api\Service\ServiceFactory;
  */
 class Api
 {
-    public const VERSION = '1.9';
+    public const VERSION = '1.8';
 
     private Config $config;
     private Caller $caller;
