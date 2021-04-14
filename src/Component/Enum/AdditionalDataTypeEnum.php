@@ -11,4 +11,5 @@ class AdditionalDataTypeEnum extends Enum
     public const GIF = 'gif';
     public const JPG = 'jpg';
     public const PNG = 'png';
+    public const WEBP = 'webp'; // not documented
 }
