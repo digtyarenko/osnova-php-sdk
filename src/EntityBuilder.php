@@ -7,7 +7,6 @@ use Osnova\Api\Component\Enum\Enum;
 use Osnova\Api\Component\Model\Model;
 use Osnova\Api\Exception\InvalidEntityClassException;
 use Osnova\Api\Exception\OsnovaApiException;
-use Osnova\Api\Exception\UnexpectedResultTypeException;
 use Osnova\Api\Helper\Utils;
 
 /**
@@ -22,19 +21,13 @@ class EntityBuilder
     protected $data;
     protected string $entityClass;
     protected int $mode;
-    protected array $reflectionProperties = [];
 
     /**
      * @param $data
      * @param string $entityClass
-     * @throws UnexpectedResultTypeException
      */
     public function __construct($data, string $entityClass)
     {
-        if (!is_array($data) && !is_object($data)) {
-            throw new UnexpectedResultTypeException('Expected array or instance of stdClass, ' . gettype($data) . ' given');
-        }
-
         $this->data = $data;
         $this->entityClass = $entityClass;
 
@@ -43,8 +36,9 @@ class EntityBuilder
     }
 
     /**
-     * @return Model|Model[]|null
+     * @return Model[]|Model|null
      * @throws InvalidEntityClassException
+     * @throws OsnovaApiException
      */
     public function build()
     {
@@ -69,6 +63,7 @@ class EntityBuilder
      * @param $oneEntity
      * @return Model|null
      * @throws InvalidEntityClassException
+     * @throws OsnovaApiException
      */
     protected function buildOneEntity(string $entityClass, $oneEntity): ?Model
     {
@@ -99,11 +94,7 @@ class EntityBuilder
                     $propertyType = $property->getType()->getName();
 
                     if (class_exists($propertyType)) {
-                        try {
-                            $this->fillProperty($entity, $propertyName, $propertyType, $value);
-                        } catch (\Throwable $t) {
-                            $a = 1;
-                        }
+                        $this->fillProperty($entity, $propertyName, $propertyType, $value);
                         unset($oneEntity[$propertyName]);
                         continue;
                     }
@@ -132,6 +123,7 @@ class EntityBuilder
      * @param array $arrayOfEntities
      * @return Model[]
      * @throws InvalidEntityClassException
+     * @throws OsnovaApiException
      */
     protected function buildArrayOfEntities(string $entityClass, array $arrayOfEntities): array
     {
@@ -157,7 +149,14 @@ class EntityBuilder
     {
         switch (true) {
             case is_subclass_of($class, Model::class):
-                $entity->{$propertyName} = $this->buildOneEntity($class, $value);
+            case is_subclass_of($class, \stdClass::class):
+                $builtEntity = $this->buildOneEntity($class, $value);
+
+                if (null === $builtEntity) {
+                    return;
+                }
+
+                $entity->{$propertyName} = $builtEntity;
                 break;
             case is_subclass_of($class, ArrayOfModel::class):
                 $targetEntity = $class::ENTITY;
