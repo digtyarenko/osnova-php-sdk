@@ -12,12 +12,12 @@ class Error
     protected array $info;
 
     /**
-     * @param \stdClass $error
+     * @param array $error
      */
-    public function __construct(\stdClass $error)
+    public function __construct(array $error)
     {
-        $this->code = $error->code ?? 0;
-        $this->info = $error->info ?? [];
+        $this->code = $error['code'] ?? 0;
+        $this->info = $error['info'] ?? [];
     }
 
     /**

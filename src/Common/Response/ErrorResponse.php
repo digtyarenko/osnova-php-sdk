@@ -2,6 +2,8 @@
 
 namespace Osnova\Api\Common\Response;
 
+use Osnova\Api\Helper\Utils;
+
 /**
  * Class ErrorResponse
  * @package Osnova\Api\Common\Response
@@ -14,7 +16,11 @@ class ErrorResponse extends Response
     {
         parent::__construct($data);
 
-        $this->error = new Error(is_object($data) ? $data->error : $data['error']);
+        if (is_object($data)) {
+            $data = Utils::convertObjectToArray($data);
+        }
+
+        $this->error = new Error($data);
     }
 
     /**
