@@ -2,6 +2,6 @@
 
 namespace Osnova\Api\Exception;
 
-class InvalidTokenException extends OsnovaApiException
+class TokenRequiredException extends OsnovaApiException
 {
 }

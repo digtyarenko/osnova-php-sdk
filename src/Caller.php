@@ -7,13 +7,12 @@ use Osnova\Api\Common\Method;
 use Osnova\Api\Common\Response\ErrorResponse;
 use Osnova\Api\Common\Response\Response;
 use Osnova\Api\Component\Enum\ModeEnum;
-use Osnova\Api\Exception\InvalidEntityClassException;
-use Osnova\Api\Exception\InvalidTokenException;
 use Osnova\Api\Exception\OsnovaApiException;
+use Osnova\Api\Exception\TokenRequiredException;
 use Osnova\Api\Exception\UnexpectedMethodException;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use Osnova\Api\Exception\UnexpectedResultTypeException;
+use GuzzleHttp\Psr7\Response as ClientResponse;
 use Osnova\Api\Helper\Utils;
 
 /**
@@ -22,6 +21,9 @@ use Osnova\Api\Helper\Utils;
  */
 class Caller
 {
+    public const FORBIDDEN_CODE = 403;
+    public const FORBIDDEN_REASON = 'Forbidden';
+
     private Api $api;
     private string $method;
     private string $entityClass;
@@ -68,14 +70,17 @@ class Caller
 
     /**
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedMethodException
+     * @throws TokenRequiredException
      */
     public function call(): IResponse
     {
-        $this->params = Utils::prepareParams($this->method, $this->params);
+        try {
+            $this->params = Utils::prepareParams($this->method, $this->params);
+        } catch (UnexpectedMethodException $e) {
+            $this->params = [];
+        }
+
         $client = $this->makeClient();
 
         try {
@@ -85,13 +90,17 @@ class Caller
                 $this->params
             );
 
-            return $this->prepareResponse(
-                $response->getBody()->getContents()
-            );
+            return $this->prepareResponse($response);
         } catch (ClientException $e) {
-            return $this->prepareResponse(
-                $e->getResponse()->getBody()->getContents()
-            );
+            $response = $e->getResponse();
+
+            if (self::FORBIDDEN_CODE === $response->getStatusCode()
+                && self::FORBIDDEN_REASON === $response->getReasonPhrase()) {
+                $preparedResponse = $this->prepareResponse($response);
+                throw new TokenRequiredException($preparedResponse->getMessage(), $response->getStatusCode());
+            }
+
+            return $this->prepareResponse($response);
         } catch (\Throwable $t) {
             throw new OsnovaApiException($t->getMessage(), $t->getCode(), $t);
         }
@@ -99,7 +108,6 @@ class Caller
 
     /**
      * @return Client
-     * @throws InvalidTokenException
      */
     protected function makeClient(): Client
     {
@@ -110,8 +118,7 @@ class Caller
     }
 
     /**
-     * @return array[]
-     * @throws InvalidTokenException
+     * @return array
      */
     protected function getHeaders(): array
     {
@@ -154,15 +161,14 @@ class Caller
     }
 
     /**
-     * @param string $body
+     * @param ClientResponse $response
      * @return IResponse
-     * @throws InvalidEntityClassException
      * @throws OsnovaApiException
      */
-    protected function prepareResponse(string $body): IResponse
+    protected function prepareResponse(ClientResponse $response): IResponse
     {
         $mode = $this->api->getConfig()->getMode();
-        $rawData = json_decode($body, ModeEnum::MODE_RAW === $mode);
+        $rawData = json_decode($response->getBody()->getContents(), ModeEnum::MODE_RAW === $mode);
 
         if ((is_object($rawData) && property_exists($rawData, 'error'))
             || (is_array($rawData) && array_key_exists('error', $rawData))) {

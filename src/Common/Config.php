@@ -64,12 +64,11 @@ class Config
 
     /**
      * @return string
-     * @throws InvalidTokenException
      */
-    public function getToken(): string
+    public function getToken(): ?string
     {
         if (empty($this->token)) {
-            throw new InvalidTokenException('Invalid token');
+            return null;
         }
 
         return $this->token;
