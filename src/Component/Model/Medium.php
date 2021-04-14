@@ -2,12 +2,15 @@
 
 namespace Osnova\Api\Component\Model;
 
+use Osnova\Api\Component\Enum\MediumTypeEnum;
+
+/**
+ * Class Medium
+ * @package Osnova\Api\Component\Model
+ */
 class Medium extends Model
 {
-    public const TYPE_IMAGE = 1;
-    public const TYPE_VIDEO = 2;
-
-    public int $type;
+    public MediumTypeEnum $type;
     public string $imageUrl;
     public string $iframeUrl;
     public string $service;

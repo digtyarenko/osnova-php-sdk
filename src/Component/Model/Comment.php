@@ -4,6 +4,7 @@ namespace Osnova\Api\Component\Model;
 
 use Osnova\Api\Common\Support\Storage\ArrayOfAttach;
 use Osnova\Api\Common\Support\Storage\ArrayOfMedium;
+use Osnova\Api\Service\Comment\Enum\SourceIdEnum;
 
 /**
  * Class Comment
@@ -11,10 +12,6 @@ use Osnova\Api\Common\Support\Storage\ArrayOfMedium;
  */
 class Comment extends Model
 {
-    public const SOURCE_ID_OTHER = 0;
-    public const SOURCE_ID_IOS = 1;
-    public const SOURCE_ID_ANDROID = 2;
-
     public int $id;
     public int $date;
     public string $dateRFC;
@@ -29,7 +26,7 @@ class Comment extends Model
     public bool $is_pinned;
     public bool $isEdited;
     public int $level;
-    public int $source_id;
+    public SourceIdEnum $source_id;
     public CommentsLoadMore $load_more;
     public ArrayOfAttach $attaches;
     public EtcControls $etcControls;

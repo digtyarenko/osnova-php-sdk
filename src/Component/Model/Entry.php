@@ -8,6 +8,7 @@ use Osnova\Api\Common\Support\Storage\ArrayOfEntryBlock;
 use Osnova\Api\Common\Support\Storage\ArrayOfSimilar;
 use Osnova\Api\Component\Model\Custom\CommentsSeenCountObject;
 use Osnova\Api\Component\Model\Custom\RepostObject;
+use Osnova\Api\Service\Entry\Enum\EntryTypeEnum;
 
 /**
  * Class Entry
@@ -15,12 +16,6 @@ use Osnova\Api\Component\Model\Custom\RepostObject;
  */
 class Entry extends Model
 {
-    public const TYPE_ENTRY = 1;
-    public const TYPE_VACANCY = 2;
-    public const TYPE_STATICPAGE = 3;
-    public const TYPE_EVENT = 4;
-    public const TYPE_REPOST = 5;
-
     public int $id;
     public string $title;
     public string $webviewUrl;
@@ -29,7 +24,7 @@ class Entry extends Model
     public string $dateRFC;
     public int $lastModificationDate;
     public Author $author;
-    public int $type;
+    public EntryTypeEnum $type;
     public string $intro;
     public Cover $cover;
     public string $introInFeed;

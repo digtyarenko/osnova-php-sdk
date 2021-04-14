@@ -3,6 +3,7 @@
 namespace Osnova\Api\Component\Model;
 
 use Osnova\Api\Component\Enum\Enum;
+use Osnova\Api\Component\Enum\IntEnum;
 use Osnova\Api\Helper\Utils;
 
 /**
@@ -38,8 +39,14 @@ class Model
                     return null;
                 }
 
-                if (is_object($this->{$propertyName}) && is_subclass_of($this->{$propertyName}, Enum::class)) {
-                    return (string) $this->{$propertyName};
+                if (is_object($this->{$propertyName})) {
+                    if (is_subclass_of($this->{$propertyName}, IntEnum::class)) {
+                        return (int) ((string) $this->{$propertyName});
+                    }
+
+                    if (is_subclass_of($this->{$propertyName}, Enum::class)) {
+                        return (string) $this->{$propertyName};
+                    }
                 }
 
                 return $this->{$propertyName};

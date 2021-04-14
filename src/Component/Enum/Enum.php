@@ -10,13 +10,13 @@ use Osnova\Api\Exception\EnumException;
  */
 abstract class Enum
 {
-    private string $currentValue;
+    private $currentValue;
 
     /**
-     * @param string $value
+     * @param string|int $value
      * @throws EnumException
      */
-    public function __construct(string $value)
+    public function __construct($value)
     {
         $this->checkIsValueExists($value);
         $this->currentValue = $value;
@@ -24,14 +24,14 @@ abstract class Enum
 
     public function __toString()
     {
-        return $this->currentValue;
+        return (string) $this->currentValue;
     }
 
     /**
-     * @param string $value
+     * @param string|int $value
      * @throws EnumException
      */
-    protected function checkIsValueExists(string $value): void
+    protected function checkIsValueExists($value): void
     {
         $constants = (new \ReflectionObject($this))->getConstants();
 
