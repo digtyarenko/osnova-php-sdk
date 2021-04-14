@@ -7,11 +7,8 @@ use Osnova\Api\Common\Params\CountOffsetParams;
 use Osnova\Api\Component\Model\Custom\SubsiteVacanciesObject;
 use Osnova\Api\Component\Model\Entry;
 use Osnova\Api\Component\Model\Subsite;
-use Osnova\Api\Exception\InvalidEntityClassException;
-use Osnova\Api\Exception\InvalidParametersException;
-use Osnova\Api\Exception\InvalidTokenException;
 use Osnova\Api\Exception\OsnovaApiException;
-use Osnova\Api\Exception\UnexpectedResultTypeException;
+use Osnova\Api\Exception\TokenRequiredException;
 use Osnova\Api\Service\BaseService;
 use Osnova\Api\Service\Subsite\Enum\SortingEnum;
 use Osnova\Api\Service\Subsite\Enum\TypeEnum;
@@ -29,11 +26,8 @@ class SubsiteService extends BaseService
      *
      * @param int $id
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getSubsite(int $id): IResponse
     {
@@ -51,11 +45,8 @@ class SubsiteService extends BaseService
      * @param int|null $count
      * @param int|null $offset
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getSubsiteTimeline(int $id, SortingEnum $sorting, int $count = null, int $offset = null): IResponse
     {
@@ -70,11 +61,8 @@ class SubsiteService extends BaseService
      *
      * @param TypeEnum $type
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getSubsitesList(TypeEnum $type): IResponse
     {
@@ -89,11 +77,8 @@ class SubsiteService extends BaseService
      *
      * @param int $subsiteId
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getSubsiteVacancies(int $subsiteId): IResponse
     {
@@ -109,11 +94,8 @@ class SubsiteService extends BaseService
      * @param int $subsiteId
      * @param int $lastId
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getSubsiteVacanciesMore(int $subsiteId, int $lastId): IResponse
     {
@@ -128,11 +110,8 @@ class SubsiteService extends BaseService
      *
      * @param int $id
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getSubsiteSubscribe(int $id): IResponse
     {
@@ -146,11 +125,8 @@ class SubsiteService extends BaseService
      *
      * @param int $id
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getSubsiteUnsubscribe(int $id): IResponse
     {

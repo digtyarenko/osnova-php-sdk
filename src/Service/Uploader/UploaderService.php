@@ -5,11 +5,8 @@ namespace Osnova\Api\Service\Uploader;
 use Osnova\Api\Common\Interfaces\IResponse;
 use Osnova\Api\Common\Method;
 use Osnova\Api\Component\Model\Custom\UploaderResultObject;
-use Osnova\Api\Exception\InvalidEntityClassException;
-use Osnova\Api\Exception\InvalidParametersException;
-use Osnova\Api\Exception\InvalidTokenException;
 use Osnova\Api\Exception\OsnovaApiException;
-use Osnova\Api\Exception\UnexpectedResultTypeException;
+use Osnova\Api\Exception\TokenRequiredException;
 use Osnova\Api\Service\BaseService;
 
 /**
@@ -25,11 +22,8 @@ class UploaderService extends BaseService
      *
      * @param string $url
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function postUploaderExtract(string $url): IResponse
     {
@@ -45,11 +39,8 @@ class UploaderService extends BaseService
      *
      * @param string $file
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function postUploaderUpload(string $file): IResponse
     {

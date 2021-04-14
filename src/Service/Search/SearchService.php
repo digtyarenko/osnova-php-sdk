@@ -5,11 +5,8 @@ namespace Osnova\Api\Service\Search;
 use Osnova\Api\Common\Interfaces\IResponse;
 use Osnova\Api\Component\Model\Entry;
 use Osnova\Api\Component\Model\Subsite;
-use Osnova\Api\Exception\InvalidEntityClassException;
-use Osnova\Api\Exception\InvalidParametersException;
-use Osnova\Api\Exception\InvalidTokenException;
 use Osnova\Api\Exception\OsnovaApiException;
-use Osnova\Api\Exception\UnexpectedResultTypeException;
+use Osnova\Api\Exception\TokenRequiredException;
 use Osnova\Api\Service\BaseService;
 use Osnova\Api\Service\Search\Enum\OrderByEnum;
 
@@ -28,11 +25,8 @@ class SearchService extends BaseService
      * @param OrderByEnum|null $orderBy
      * @param int|null $page
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getSearch(string $query, OrderByEnum $orderBy = null, int $page = null): IResponse
     {
@@ -51,11 +45,8 @@ class SearchService extends BaseService
      *
      * @param string $q
      * @return IResponse
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws InvalidEntityClassException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getSearchSubsite(string $q): IResponse
     {
@@ -70,11 +61,8 @@ class SearchService extends BaseService
      *
      * @param string $q
      * @return IResponse
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws InvalidEntityClassException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getSearchHashtag(string $q): IResponse
     {
@@ -87,11 +75,8 @@ class SearchService extends BaseService
      * @param string $text
      * @param int $lastId
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getTag(string $text, int $lastId): IResponse
     {

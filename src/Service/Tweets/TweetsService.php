@@ -5,11 +5,8 @@ namespace Osnova\Api\Service\Tweets;
 use Osnova\Api\Common\Interfaces\IResponse;
 use Osnova\Api\Common\Params\CountOffsetParams;
 use Osnova\Api\Component\Model\Tweet;
-use Osnova\Api\Exception\InvalidEntityClassException;
-use Osnova\Api\Exception\InvalidParametersException;
-use Osnova\Api\Exception\InvalidTokenException;
 use Osnova\Api\Exception\OsnovaApiException;
-use Osnova\Api\Exception\UnexpectedResultTypeException;
+use Osnova\Api\Exception\TokenRequiredException;
 use Osnova\Api\Service\BaseService;
 use Osnova\Api\Service\Tweets\Enum\ModeEnum;
 
@@ -28,11 +25,8 @@ class TweetsService extends BaseService
      * @param int|null $count
      * @param int|null $offset
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getTweets(ModeEnum $mode, int $count = null, int $offset = null): IResponse
     {

@@ -6,10 +6,10 @@ use Osnova\Api\Api;
 use Osnova\Api\Caller;
 use Osnova\Api\Common\Interfaces\IService;
 use Osnova\Api\Exception\InvalidParametersException;
-use Osnova\Api\Exception\UnexpectedMethodException;
 use Osnova\Api\Helper\Utils;
 
 /**
+ * Class BaseService
  * @package Osnova\Api\Service
  */
 class BaseService implements IService
@@ -28,11 +28,14 @@ class BaseService implements IService
      * @param string $path
      * @param null $params
      * @return Caller
-     * @throws InvalidParametersException
      */
     public function prepare(string $path, $params = null): Caller
     {
-        $params = Utils::processParams($params);
+        try {
+            $params = Utils::processParams($params);
+        } catch (InvalidParametersException $e) {
+            $params = [];
+        }
 
         return $this
             ->api
@@ -41,17 +44,14 @@ class BaseService implements IService
     }
 
     /**
-     * @param mixed ...$args
+     * @param int|string|null $path
+     * @param null $params
      * @return Caller
-     * @throws InvalidParametersException
      */
-    public function prepareWithName(...$args): Caller
+    public function prepareWithName($path = null, $params = null): Caller
     {
-        if (!empty($args)) {
-            $args[0] = sprintf('%s/%s', $this->getName(), trim((string) $args[0], '/'));
-        }
-
-        return $this->prepare(...$args);
+        $path = trim(sprintf('%s/%s', $this->getName(), trim((string) $path, '/')), '/');
+        return $this->prepare($path, $params);
     }
 
     /**

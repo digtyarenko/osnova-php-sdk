@@ -5,11 +5,8 @@ namespace Osnova\Api\Service\Events;
 use Osnova\Api\Common\Interfaces\IResponse;
 use Osnova\Api\Component\Model\Custom\EventsFiltersResultObject;
 use Osnova\Api\Component\Model\Custom\EventsResultObject;
-use Osnova\Api\Exception\InvalidEntityClassException;
-use Osnova\Api\Exception\InvalidParametersException;
-use Osnova\Api\Exception\InvalidTokenException;
 use Osnova\Api\Exception\OsnovaApiException;
-use Osnova\Api\Exception\UnexpectedResultTypeException;
+use Osnova\Api\Exception\TokenRequiredException;
 use Osnova\Api\Service\BaseService;
 
 /**
@@ -24,11 +21,8 @@ class EventsService extends BaseService
      * @see https://cmtt-ru.github.io/osnova-api/redoc.html#operation/getEventsFilters
      *
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getEventsFilters(): IResponse
     {
@@ -44,16 +38,13 @@ class EventsService extends BaseService
      * @param int|null $cityId
      * @param string|null $specializationIds
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getEvents(int $cityId = null, string $specializationIds = null): IResponse
     {
         return $this
-            ->prepareWithName('', [
+            ->prepareWithName(null, [
                 'city_id' => $cityId,
                 'specialization_ids' => $specializationIds
             ])
@@ -68,11 +59,8 @@ class EventsService extends BaseService
      * @param int|null $cityId
      * @param string|null $specializationIds
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getEventsMore(int $lastId, int $cityId = null, string $specializationIds = null): IResponse
     {

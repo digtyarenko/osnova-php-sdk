@@ -7,12 +7,8 @@ use Osnova\Api\Common\Method;
 use Osnova\Api\Component\Model\Comment;
 use Osnova\Api\Component\Model\Custom\EntryCommentsLevelsGetObject;
 use Osnova\Api\Component\Model\Model;
-use Osnova\Api\Exception\InvalidEntityClassException;
-use Osnova\Api\Exception\InvalidParametersException;
-use Osnova\Api\Exception\InvalidTokenException;
 use Osnova\Api\Exception\OsnovaApiException;
-use Osnova\Api\Exception\UnexpectedMethodException;
-use Osnova\Api\Exception\UnexpectedResultTypeException;
+use Osnova\Api\Exception\TokenRequiredException;
 use Osnova\Api\Service\BaseService;
 use Osnova\Api\Service\Comment\Enum\SortingEnum;
 
@@ -30,12 +26,8 @@ class CommentService extends BaseService
      * @param int $id
      * @param SortingEnum $sorting
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedMethodException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getEntryComments(int $id, SortingEnum $sorting): IResponse
     {
@@ -51,12 +43,8 @@ class CommentService extends BaseService
      * @param int $id
      * @param SortingEnum $sorting
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedMethodException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getEntryCommentsLevelsGet(int $id, SortingEnum $sorting): IResponse
     {
@@ -72,12 +60,8 @@ class CommentService extends BaseService
      * @param int $entryId
      * @param int $commentId
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedMethodException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getEntryCommentsThread(int $entryId, int $commentId): IResponse
     {
@@ -94,12 +78,8 @@ class CommentService extends BaseService
      * @param int $replyTo
      * @param string|null $attachments
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedMethodException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function postCommentSend(int $id, string $text, int $replyTo = 0, string $attachments = null): IResponse
     {
@@ -123,11 +103,8 @@ class CommentService extends BaseService
      * @param string $text
      * @param string|null $attachments
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function postCommentEdit(int $entryId, int $commentId, string $text, string $attachments = null): IResponse
     {

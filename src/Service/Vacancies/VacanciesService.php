@@ -6,11 +6,8 @@ use Osnova\Api\Common\Interfaces\IResponse;
 use Osnova\Api\Component\Model\Custom\JobFiltersResultObject;
 use Osnova\Api\Component\Model\Custom\VacanciesResultObject;
 use Osnova\Api\Component\Model\Vacancy;
-use Osnova\Api\Exception\InvalidEntityClassException;
-use Osnova\Api\Exception\InvalidParametersException;
-use Osnova\Api\Exception\InvalidTokenException;
 use Osnova\Api\Exception\OsnovaApiException;
-use Osnova\Api\Exception\UnexpectedResultTypeException;
+use Osnova\Api\Exception\TokenRequiredException;
 use Osnova\Api\Service\BaseService;
 
 /**
@@ -25,11 +22,8 @@ class VacanciesService extends BaseService
      * @see https://cmtt-ru.github.io/osnova-api/redoc.html#operation/getJob
      *
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getJob(): IResponse
     {
@@ -44,11 +38,8 @@ class VacanciesService extends BaseService
      *
      * @param int $lastId
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getJobMore(int $lastId): IResponse
     {
@@ -62,11 +53,8 @@ class VacanciesService extends BaseService
      * @see https://cmtt-ru.github.io/osnova-api/redoc.html#operation/getJobFilters
      *
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getJobFilters(): IResponse
     {
@@ -80,11 +68,8 @@ class VacanciesService extends BaseService
      * @see https://cmtt-ru.github.io/osnova-api/redoc.html#operation/getVacancies
      *
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getVacancies(): IResponse
     {

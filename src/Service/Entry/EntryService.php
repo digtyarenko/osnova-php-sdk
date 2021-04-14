@@ -7,11 +7,8 @@ use Osnova\Api\Common\Method;
 use Osnova\Api\Component\Model\Attach;
 use Osnova\Api\Component\Model\Entry;
 use Osnova\Api\Component\Model\Likes;
-use Osnova\Api\Exception\InvalidEntityClassException;
-use Osnova\Api\Exception\InvalidParametersException;
-use Osnova\Api\Exception\InvalidTokenException;
 use Osnova\Api\Exception\OsnovaApiException;
-use Osnova\Api\Exception\UnexpectedResultTypeException;
+use Osnova\Api\Exception\TokenRequiredException;
 use Osnova\Api\Service\BaseService;
 use Osnova\Api\Service\Entry\Enum\SignEnum;
 use Osnova\Api\Service\Entry\Enum\TypeStringEnum;
@@ -29,11 +26,8 @@ class EntryService extends BaseService
      *
      * @param int $id
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getEntryById(int $id): IResponse
     {
@@ -48,11 +42,8 @@ class EntryService extends BaseService
      *
      * @param int $id
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getEntryWidgets(int $id): IResponse
     {
@@ -67,11 +58,8 @@ class EntryService extends BaseService
      * @param string $title
      * @param Entry $entry
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function postEntryCreate(int $subsiteId, string $title, Entry $entry): IResponse
     {
@@ -95,11 +83,8 @@ class EntryService extends BaseService
      * @param string $text
      * @param string|null $attachments
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function postEntryCreateSimple(int $subsiteId, string $title, string $text, string $attachments = null): IResponse
     {
@@ -120,11 +105,8 @@ class EntryService extends BaseService
      *
      * @param int $id
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getPopularEntries(int $id): IResponse
     {
@@ -141,11 +123,8 @@ class EntryService extends BaseService
      * @param TypeStringEnum $type
      * @param SignEnum $sign
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function postLikeEntry(int $id, TypeStringEnum $type, SignEnum $sign): IResponse
     {
@@ -165,11 +144,8 @@ class EntryService extends BaseService
      *
      * @param string $url
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getEntryLocate(string $url): IResponse
     {
@@ -184,11 +160,8 @@ class EntryService extends BaseService
      *
      * @param string $url
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function postEntryAttachEmbed(string $url): IResponse
     {

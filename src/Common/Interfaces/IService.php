@@ -18,10 +18,11 @@ interface IService
     public function prepare(string $path, $params = null): Caller;
 
     /**
-     * @param ...$args
+     * @param int|string|null $path
+     * @param null $params
      * @return Caller
      */
-    public function prepareWithName(...$args): Caller;
+    public function prepareWithName($path = null, $params = null): Caller;
 
     /**
      * @return string

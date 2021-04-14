@@ -11,12 +11,8 @@ use Osnova\Api\Component\Model\Model;
 use Osnova\Api\Component\Model\Notification;
 use Osnova\Api\Component\Model\Subsite;
 use Osnova\Api\Component\Model\Vacancy;
-use Osnova\Api\Exception\InvalidEntityClassException;
-use Osnova\Api\Exception\InvalidParametersException;
-use Osnova\Api\Exception\InvalidTokenException;
 use Osnova\Api\Exception\OsnovaApiException;
-use Osnova\Api\Exception\UnexpectedMethodException;
-use Osnova\Api\Exception\UnexpectedResultTypeException;
+use Osnova\Api\Exception\TokenRequiredException;
 use Osnova\Api\Service\BaseService;
 use Osnova\Api\Service\Entry\Enum\ActionEnum;
 use Osnova\Api\Service\Entry\Enum\TypeEnum;
@@ -35,11 +31,8 @@ class UserService extends BaseService
      *
      * @param int $id
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getUser(int $id): IResponse
     {
@@ -53,11 +46,8 @@ class UserService extends BaseService
      * @see https://cmtt-ru.github.io/osnova-api/redoc.html#operation/getUserMe
      *
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getUserMe(): IResponse
     {
@@ -73,11 +63,8 @@ class UserService extends BaseService
      * @param int $isRead
      * @param int|null $lastId
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getUserMeUpdates(int $isRead = 1, int $lastId = null): IResponse
     {
@@ -94,11 +81,8 @@ class UserService extends BaseService
      * @see https://cmtt-ru.github.io/osnova-api/redoc.html#operation/getUserMeUpdatesCount
      *
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getUserMeUpdatesCount(): IResponse
     {
@@ -113,11 +97,8 @@ class UserService extends BaseService
      *
      * @param int $id
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function postUserMeUpdatesReadId(int $id): IResponse
     {
@@ -132,11 +113,8 @@ class UserService extends BaseService
      * @see https://cmtt-ru.github.io/osnova-api/redoc.html#operation/postUserMeUpdatesRead
      *
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function postUserMeUpdatesRead(): IResponse
     {
@@ -154,11 +132,8 @@ class UserService extends BaseService
      * @param int|null $count
      * @param int|null $offset
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getUserComments(int $id, int $count = null, int $offset = null): IResponse
     {
@@ -174,11 +149,8 @@ class UserService extends BaseService
      * @param int|null $count
      * @param int|null $offset
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getUserMeComments(int $count = null, int $offset = null): IResponse
     {
@@ -195,11 +167,8 @@ class UserService extends BaseService
      * @param int|null $count
      * @param int|null $offset
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getUserEntries(int $id, int $count = null, int $offset = null): IResponse
     {
@@ -215,11 +184,8 @@ class UserService extends BaseService
      * @param int|null $count
      * @param int|null $offset
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getUserMeEntries(int $count = null, int $offset = null): IResponse
     {
@@ -236,11 +202,8 @@ class UserService extends BaseService
      * @param int|null $count
      * @param int|null $offset
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getUserFavoritesEntries(int $id, int $count = null, int $offset = null): IResponse
     {
@@ -257,11 +220,8 @@ class UserService extends BaseService
      * @param int|null $count
      * @param int|null $offset
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getUserFavoritesComments(int $id, int $count = null, int $offset = null): IResponse
     {
@@ -278,11 +238,8 @@ class UserService extends BaseService
      * @param int|null $count
      * @param int|null $offset
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getUserFavoritesVacancies(int $id, int $count = null, int $offset = null): IResponse
     {
@@ -298,11 +255,8 @@ class UserService extends BaseService
      * @param int|null $count
      * @param int|null $offset
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getUserMeFavoritesEntries(int $count = null, int $offset = null): IResponse
     {
@@ -318,11 +272,8 @@ class UserService extends BaseService
      * @param int|null $count
      * @param int|null $offset
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getUserMeFavoritesComments(int $count = null, int $offset = null): IResponse
     {
@@ -338,11 +289,8 @@ class UserService extends BaseService
      * @param int|null $count
      * @param int|null $offset
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getUserMeFavoritesVacancies(int $count = null, int $offset = null): IResponse
     {
@@ -356,11 +304,8 @@ class UserService extends BaseService
      * @see https://cmtt-ru.github.io/osnova-api/redoc.html#operation/getUserMeSubscriptionsRecommended
      *
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getUserMeSubscriptionsRecommended(): IResponse
     {
@@ -374,11 +319,8 @@ class UserService extends BaseService
      * @see https://cmtt-ru.github.io/osnova-api/redoc.html#operation/getUserMeSubscriptionsSubscribed
      *
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getUserMeSubscriptionsSubscribed(): IResponse
     {
@@ -394,11 +336,8 @@ class UserService extends BaseService
      * @param int $id
      * @param TypeEnum $type
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function postFavoriteAdd(int $id, TypeEnum $type): IResponse
     {
@@ -415,11 +354,8 @@ class UserService extends BaseService
      * @param int $id
      * @param TypeEnum $type
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function postFavoriteRemove(int $id, TypeEnum $type): IResponse
     {
@@ -434,11 +370,8 @@ class UserService extends BaseService
      * @see https://cmtt-ru.github.io/osnova-api/redoc.html#operation/getUserMeTuneCatalog
      *
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getUserMeTuneCatalog(): IResponse
     {
@@ -453,11 +386,8 @@ class UserService extends BaseService
      *
      * @param array $settings
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function postUserMeTuneCatalog(array $settings): IResponse
     {
@@ -472,11 +402,8 @@ class UserService extends BaseService
      *
      * @param string $url
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function postUserMeSaveAvatar(string $url): IResponse
     {
@@ -492,11 +419,8 @@ class UserService extends BaseService
      *
      * @param string $cover
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function postUserMeSaveCover(string $cover): IResponse
     {
@@ -512,11 +436,8 @@ class UserService extends BaseService
      * @param int $id
      * @param ActionEnum $action
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function postUserMeSubscription(int $id, ActionEnum $action): IResponse
     {
@@ -534,12 +455,8 @@ class UserService extends BaseService
      * @see https://cmtt-ru.github.io/osnova-api/redoc.html#operation/getGetIgnoredKeywords
      *
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
-     * @throws UnexpectedMethodException
+     * @throws TokenRequiredException
      */
     public function getGetIgnoredKeywords(): IResponse
     {
@@ -554,12 +471,8 @@ class UserService extends BaseService
      *
      * @param array $keywords
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedMethodException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function postSubsiteIgnoreKeywords(array $keywords): IResponse
     {

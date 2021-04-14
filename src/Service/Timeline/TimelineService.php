@@ -5,11 +5,8 @@ namespace Osnova\Api\Service\Timeline;
 use Osnova\Api\Common\Interfaces\IResponse;
 use Osnova\Api\Common\Params\CountOffsetParams;
 use Osnova\Api\Component\Model\Entry;
-use Osnova\Api\Exception\InvalidEntityClassException;
-use Osnova\Api\Exception\InvalidParametersException;
-use Osnova\Api\Exception\InvalidTokenException;
 use Osnova\Api\Exception\OsnovaApiException;
-use Osnova\Api\Exception\UnexpectedResultTypeException;
+use Osnova\Api\Exception\TokenRequiredException;
 use Osnova\Api\Service\BaseService;
 use Osnova\Api\Service\Timeline\Enum\CategoryEnum;
 use Osnova\Api\Service\Timeline\Enum\SortingEnum;
@@ -30,11 +27,8 @@ class TimelineService extends BaseService
      * @param int|null $count
      * @param int|null $offset
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getTimeline(CategoryEnum $category, SortingEnum $sorting, int $count = null, int $offset = null): IResponse
     {
@@ -51,11 +45,8 @@ class TimelineService extends BaseService
      * @param int|null $lastId
      * @param int|null $limit
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getTimelineByHashtag(string $hashtag, int $lastId = null, int $limit = null): IResponse
     {
@@ -75,11 +66,8 @@ class TimelineService extends BaseService
      * @param int|null $count
      * @param int|null $offset
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getTimelineNews(int $count = null, int $offset = null): IResponse
     {
@@ -93,11 +81,8 @@ class TimelineService extends BaseService
      * @see https://cmtt-ru.github.io/osnova-api/redoc.html#operation/getFlashholder
      *
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getFlashholder(): IResponse
     {

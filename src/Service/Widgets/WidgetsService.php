@@ -4,11 +4,8 @@ namespace Osnova\Api\Service\Widgets;
 
 use Osnova\Api\Common\Interfaces\IResponse;
 use Osnova\Api\Component\Model\Rates;
-use Osnova\Api\Exception\InvalidEntityClassException;
-use Osnova\Api\Exception\InvalidParametersException;
-use Osnova\Api\Exception\InvalidTokenException;
 use Osnova\Api\Exception\OsnovaApiException;
-use Osnova\Api\Exception\UnexpectedResultTypeException;
+use Osnova\Api\Exception\TokenRequiredException;
 use Osnova\Api\Service\BaseService;
 
 /**
@@ -23,11 +20,8 @@ class WidgetsService extends BaseService
      * @see https://cmtt-ru.github.io/osnova-api/redoc.html#operation/getRates
      *
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getRates(): IResponse
     {

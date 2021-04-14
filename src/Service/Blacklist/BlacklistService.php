@@ -5,11 +5,8 @@ namespace Osnova\Api\Service\Blacklist;
 use Osnova\Api\Common\Interfaces\IResponse;
 use Osnova\Api\Common\Method;
 use Osnova\Api\Component\Model\Subsite;
-use Osnova\Api\Exception\InvalidEntityClassException;
-use Osnova\Api\Exception\InvalidParametersException;
-use Osnova\Api\Exception\InvalidTokenException;
 use Osnova\Api\Exception\OsnovaApiException;
-use Osnova\Api\Exception\UnexpectedResultTypeException;
+use Osnova\Api\Exception\TokenRequiredException;
 use Osnova\Api\Service\BaseService;
 use Osnova\Api\Service\Blacklist\Enum\ActionEnum;
 
@@ -27,11 +24,8 @@ class BlacklistService extends BaseService
      * @param int $id
      * @param ActionEnum $action
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function postContentMute(int $id, ActionEnum $action): IResponse
     {
@@ -50,11 +44,8 @@ class BlacklistService extends BaseService
      * @param int $id
      * @param ActionEnum $action
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function postHashtagMute(int $id, ActionEnum $action): IResponse
     {
@@ -73,11 +64,8 @@ class BlacklistService extends BaseService
      * @param int $id
      * @param ActionEnum $action
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function postSubsiteMute(int $id, ActionEnum $action): IResponse
     {
@@ -94,11 +82,8 @@ class BlacklistService extends BaseService
      * @see https://cmtt-ru.github.io/osnova-api/redoc.html#operation/getIgnoresHashtags
      *
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getIgnoresHashtags(): IResponse
     {
@@ -111,11 +96,8 @@ class BlacklistService extends BaseService
      * @see https://cmtt-ru.github.io/osnova-api/redoc.html#operation/getIgnoresSubsites
      *
      * @return IResponse
-     * @throws InvalidEntityClassException
-     * @throws InvalidParametersException
-     * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws TokenRequiredException
      */
     public function getIgnoresSubsites(): IResponse
     {
