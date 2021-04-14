@@ -36,18 +36,21 @@ class EntityBuilder
     }
 
     /**
-     * @return Model[]|Model|null
-     * @throws InvalidEntityClassException
+     * @return \stdClass|Model|Model[]|null
      * @throws OsnovaApiException
      */
     public function build()
     {
         switch ($this->mode) {
             case self::MODE_ONE_ENTITY:
-                return $this->buildOneEntity(
-                    $this->entityClass,
-                    $this->data
-                );
+                try {
+                    return $this->buildOneEntity(
+                        $this->entityClass,
+                        $this->data
+                    );
+                } catch (InvalidEntityClassException $e) {
+                    return null;
+                }
             case self::MODE_ARRAY_OF_ENTITIES:
                 return $this->buildArrayOfEntities(
                     $this->entityClass,
@@ -61,13 +64,13 @@ class EntityBuilder
     /**
      * @param string $entityClass
      * @param $oneEntity
-     * @return Model|null
+     * @return Model|\stdClass|null
      * @throws InvalidEntityClassException
      * @throws OsnovaApiException
      */
-    protected function buildOneEntity(string $entityClass, $oneEntity): ?Model
+    protected function buildOneEntity(string $entityClass, $oneEntity)
     {
-        if (!class_exists($entityClass)) {
+        if (!$this->isValidEntityClass($entityClass)) {
             throw new InvalidEntityClassException("Entity '{$entityClass}' does not exists");
         }
 
@@ -121,8 +124,7 @@ class EntityBuilder
     /**
      * @param string $entityClass
      * @param array $arrayOfEntities
-     * @return Model[]
-     * @throws InvalidEntityClassException
+     * @return Model[]|\stdClass[]
      * @throws OsnovaApiException
      */
     protected function buildArrayOfEntities(string $entityClass, array $arrayOfEntities): array
@@ -131,7 +133,12 @@ class EntityBuilder
 
         do {
             $oneEntity = array_shift($arrayOfEntities);
-            $result[] = $this->buildOneEntity($entityClass, $oneEntity);
+
+            try {
+                $result[] = $this->buildOneEntity($entityClass, $oneEntity);
+            } catch (InvalidEntityClassException $e) {
+                continue;
+            }
         } while (count($arrayOfEntities));
 
         return array_filter($result);
@@ -142,7 +149,6 @@ class EntityBuilder
      * @param string $propertyName
      * @param string $class
      * @param $value
-     * @throws InvalidEntityClassException
      * @throws OsnovaApiException
      */
     protected function fillProperty(Model $entity, string $propertyName, string $class, $value): void
@@ -150,7 +156,11 @@ class EntityBuilder
         switch (true) {
             case is_subclass_of($class, Model::class):
             case is_subclass_of($class, \stdClass::class):
-                $builtEntity = $this->buildOneEntity($class, $value);
+                try {
+                    $builtEntity = $this->buildOneEntity($class, $value);
+                } catch (InvalidEntityClassException $e) {
+                    return;
+                }
 
                 if (null === $builtEntity) {
                     return;
@@ -172,10 +182,10 @@ class EntityBuilder
     }
 
     /**
-     * @param Model $entity
+     * @param Model|\stdClass $entity
      * @return \ReflectionProperty[]
      */
-    protected function getReflectionData(Model $entity): array
+    protected function getReflectionData($entity): array
     {
         return (new \ReflectionObject($entity))->getProperties();
     }
@@ -188,5 +198,16 @@ class EntityBuilder
         }
 
         $this->mode = self::MODE_ONE_ENTITY;
+    }
+
+    /**
+     * @param string $entityClass
+     * @return bool
+     */
+    protected function isValidEntityClass(string $entityClass): bool
+    {
+        return class_exists($entityClass)
+            && (is_subclass_of($entityClass, Model::class)
+                || \stdClass::class === $entityClass);
     }
 }
