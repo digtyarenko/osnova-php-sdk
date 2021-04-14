@@ -43,6 +43,7 @@ class Api
     /**
      * @param string $serviceName
      * @return IService
+     * @throws \Exception
      */
     public function getService(string $serviceName): IService
     {
