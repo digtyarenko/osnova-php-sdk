@@ -20,7 +20,7 @@ class ErrorResponse extends Response
             $data = Utils::convertObjectToArray($data);
         }
 
-        $this->error = new Error($data);
+        $this->error = new Error($data['error']);
     }
 
     /**
