@@ -71,7 +71,7 @@ class Caller
      * @throws InvalidEntityClassException
      * @throws InvalidTokenException
      * @throws OsnovaApiException
-     * @throws UnexpectedResultTypeException
+     * @throws UnexpectedMethodException
      */
     public function call(): IResponse
     {
@@ -157,7 +157,7 @@ class Caller
      * @param string $body
      * @return IResponse
      * @throws InvalidEntityClassException
-     * @throws UnexpectedResultTypeException
+     * @throws OsnovaApiException
      */
     protected function prepareResponse(string $body): IResponse
     {
