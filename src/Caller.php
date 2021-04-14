@@ -22,7 +22,9 @@ use Osnova\Api\Helper\Utils;
 class Caller
 {
     public const FORBIDDEN_CODE = 403;
-    public const FORBIDDEN_REASON = 'Forbidden';
+    public const BAD_REQUEST_CODE = 400;
+
+    public const BAD_REQUEST_MESSAGE = 'Only logged users can edit Content';
 
     private Api $api;
     private string $method;
@@ -93,16 +95,17 @@ class Caller
             return $this->prepareResponse($response);
         } catch (ClientException $e) {
             $response = $e->getResponse();
+            $preparedResponse = $this->prepareResponse($response);
 
             if (self::FORBIDDEN_CODE === $response->getStatusCode()
-                && self::FORBIDDEN_REASON === $response->getReasonPhrase()) {
-                $preparedResponse = $this->prepareResponse($response);
+                || (self::BAD_REQUEST_CODE === $response->getStatusCode()
+                    && self::BAD_REQUEST_MESSAGE === $preparedResponse->getMessage())) {
                 throw new TokenRequiredException($preparedResponse->getMessage(), $response->getStatusCode());
             }
 
             return $this->prepareResponse($response);
         } catch (\Throwable $t) {
-            throw new OsnovaApiException($t->getMessage(), $t->getCode(), $t);
+            throw new OsnovaApiException($t->getMessage(), $t->getCode());
         }
     }
 

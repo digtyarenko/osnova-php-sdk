@@ -7,6 +7,7 @@ use Osnova\Api\Common\Method;
 use Osnova\Api\Component\Model\Attach;
 use Osnova\Api\Component\Model\Entry;
 use Osnova\Api\Component\Model\Likes;
+use Osnova\Api\Component\Model\Model;
 use Osnova\Api\Exception\OsnovaApiException;
 use Osnova\Api\Exception\TokenRequiredException;
 use Osnova\Api\Service\BaseService;
@@ -150,8 +151,8 @@ class EntryService extends BaseService
     public function getEntryLocate(string $url): IResponse
     {
         return $this
-            ->prepareWithName('locate', ['url' => $url])
-            ->buildEntity(Entry::class)
+            ->prepare('locate', ['url' => $url])
+            ->buildEntity(Model::class)
             ->call();
     }
 

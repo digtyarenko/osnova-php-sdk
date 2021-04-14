@@ -2,7 +2,7 @@
 
 namespace Osnova\Api\Component\Model\Custom;
 
-use Osnova\Api\Common\Support\Storage\ArrayOfAttach;
+use Osnova\Api\Component\Model\Attach;
 use Osnova\Api\Component\Model\Model;
 
 /**
@@ -12,5 +12,5 @@ use Osnova\Api\Component\Model\Model;
 class UploaderResultObject extends Model
 {
     public string $type;
-    public ArrayOfAttach $data;
+    public Attach $data;
 }

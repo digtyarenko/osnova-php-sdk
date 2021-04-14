@@ -4,6 +4,7 @@ namespace Osnova\Api\Helper;
 
 use Osnova\Api\Common\CaseStyle;
 use Osnova\Api\Common\Method;
+use Osnova\Api\Common\Support\Storage\ArrayOf;
 use Osnova\Api\Common\Support\Storage\ArrayOfModel;
 use Osnova\Api\Component\Enum\Enum;
 use Osnova\Api\Component\Enum\IntEnum;
@@ -148,9 +149,13 @@ abstract class Utils
         }
 
         if (is_subclass_of($value, Model::class) || is_subclass_of($value, ArrayOfModel::class)) {
-            self::convertObjectToArray($value);
+            return self::convertObjectToArray($value);
         }
 
-        throw new UnexpectedTypeOfValue('Expected string or subclass of ' . Enum::class . ', ' . get_class($value) . ' given');
+        if (is_subclass_of($value, ArrayOf::class)) {
+            return (string) $value;
+        }
+
+        throw new UnexpectedTypeOfValue('Unexpected value type: ' . get_class($value) . ' given');
     }
 }

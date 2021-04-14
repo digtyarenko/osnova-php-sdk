@@ -208,6 +208,7 @@ class EntityBuilder
     {
         return class_exists($entityClass)
             && (is_subclass_of($entityClass, Model::class)
+                || Model::class === $entityClass
                 || \stdClass::class === $entityClass);
     }
 }

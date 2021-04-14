@@ -15,7 +15,6 @@ class Api
     public const VERSION = '1.8';
 
     private Config $config;
-    private Caller $caller;
 
     /**
      * @param Config $config
@@ -23,7 +22,6 @@ class Api
     public function __construct(Config $config)
     {
         $this->config = $config;
-        $this->caller = new Caller($this);
     }
 
     /**
@@ -39,7 +37,7 @@ class Api
      */
     public function getCaller(): Caller
     {
-        return $this->caller;
+        return new Caller($this);
     }
 
     /**
