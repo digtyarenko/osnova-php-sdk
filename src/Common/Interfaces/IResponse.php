@@ -2,6 +2,7 @@
 
 namespace Osnova\Api\Common\Interfaces;
 
+use Osnova\Api\Common\Response\Error;
 use Osnova\Api\Component\Model\Model;
 
 /**
@@ -19,4 +20,14 @@ interface IResponse
      * @return null|array|Model|Model[]
      */
     public function getResult();
+
+    /**
+     * @return bool
+     */
+    public function hasError(): bool;
+
+    /**
+     * @return Error|null
+     */
+    public function getError(): ?Error;
 }

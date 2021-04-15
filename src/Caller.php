@@ -103,7 +103,7 @@ class Caller
                 throw new TokenRequiredException($preparedResponse->getMessage(), $response->getStatusCode());
             }
 
-            return $this->prepareResponse($response);
+            return $preparedResponse;
         } catch (\Throwable $t) {
             throw new OsnovaApiException($t->getMessage(), $t->getCode());
         }
@@ -173,26 +173,22 @@ class Caller
         $mode = $this->api->getConfig()->getMode();
         $rawData = json_decode($response->getBody()->getContents(), ModeEnum::MODE_RAW === $mode);
 
-        if ((is_object($rawData) && property_exists($rawData, 'error'))
-            || (is_array($rawData) && array_key_exists('error', $rawData))) {
-            return new ErrorResponse($rawData);
+        if (ModeEnum::MODE_RAW === $mode) {
+            return new Response($rawData);
         }
 
-        if (ModeEnum::MODE_ENTITY === $mode) {
-            $data = new \stdClass();
-            $data->result = [];
-            $data->message = $rawData->message;
+        $data = [
+            'result'   => null,
+            'message' => $rawData->message,
+            'error'   => $rawData->error ?: null,
+        ];
 
-            if (property_exists($rawData, 'result')) {
-                $data->result = $this->needToBuildEntity()
-                    ? (new EntityBuilder($rawData->result, $this->entityClass))->build()
-                    : $rawData->result;
-            }
-
-            return new Response($data);
+        if (property_exists($rawData, 'result')) {
+            $entityBuilder = new EntityBuilder($rawData->result, $this->entityClass);
+            $data['result'] = $entityBuilder->build();
         }
 
-        return new Response($rawData);
+        return new Response($data);
     }
 
     /**
