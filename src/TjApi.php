@@ -29,4 +29,8 @@ class TjApi
     {
         return new Api(new Config(new DomainEnum(DomainEnum::TJ), $token, $version, $mode, $userAgent));
     }
+
+    private function __construct()
+    {
+    }
 }

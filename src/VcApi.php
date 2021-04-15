@@ -29,4 +29,8 @@ class VcApi
     {
         return new Api(new Config(new DomainEnum(DomainEnum::VC), $token, $version, $mode, $userAgent));
     }
+
+    private function __construct()
+    {
+    }
 }

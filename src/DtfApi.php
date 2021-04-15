@@ -29,4 +29,8 @@ class DtfApi
     {
         return new Api(new Config(new DomainEnum(DomainEnum::DTF), $token, $version, $mode, $userAgent));
     }
+
+    private function __construct()
+    {
+    }
 }
