@@ -2,11 +2,14 @@
 
 namespace Osnova\Api;
 
+use EntityBuilder\EntityBuilder;
 use Osnova\Api\Common\Interfaces\IResponse;
 use Osnova\Api\Common\Method;
-use Osnova\Api\Common\Response\ErrorResponse;
 use Osnova\Api\Common\Response\Response;
+use Osnova\Api\Common\Support\Storage\ArrayOfModel;
+use Osnova\Api\Component\Enum\Enum;
 use Osnova\Api\Component\Enum\ModeEnum;
+use Osnova\Api\Component\Model\Model;
 use Osnova\Api\Exception\OsnovaApiException;
 use Osnova\Api\Exception\TokenRequiredException;
 use Osnova\Api\Exception\UnexpectedMethodException;
@@ -166,26 +169,18 @@ class Caller
     /**
      * @param ClientResponse $response
      * @return IResponse
-     * @throws OsnovaApiException
      */
     protected function prepareResponse(ClientResponse $response): IResponse
     {
         $mode = $this->api->getConfig()->getMode();
-        $rawData = json_decode($response->getBody()->getContents(), ModeEnum::MODE_RAW === $mode);
+        $data = json_decode($response->getBody()->getContents(), true);
 
         if (ModeEnum::MODE_RAW === $mode) {
-            return new Response($rawData);
+            return new Response($data);
         }
 
-        $data = [
-            'result'   => null,
-            'message' => $rawData->message,
-            'error'   => $rawData->error ?: null,
-        ];
-
-        if (property_exists($rawData, 'result')) {
-            $entityBuilder = new EntityBuilder($rawData->result, $this->entityClass);
-            $data['result'] = $entityBuilder->build();
+        if (array_key_exists('result', $data) && $this->needToBuildEntities()) {
+            $data['result'] = $this->buildEntities($data['result']);
         }
 
         return new Response($data);
@@ -194,8 +189,33 @@ class Caller
     /**
      * @return bool
      */
-    protected function needToBuildEntity(): bool
+    protected function needToBuildEntities(): bool
     {
         return ModeEnum::MODE_ENTITY === $this->api->getConfig()->getMode() && !empty($this->entityClass);
+    }
+
+    /**
+     * @param array $result
+     * @return array|mixed|null
+     */
+    protected function buildEntities(array $result)
+    {
+        return (new EntityBuilder([Model::class]))
+            ->customFillProperty(function (object $entity, string $propertyName, string $targetEntityClass, $value) {
+            switch (true) {
+                case is_subclass_of($targetEntityClass, ArrayOfModel::class):
+                    $targetEntity = $targetEntityClass::ENTITY;
+                    /** @noinspection PhpUndefinedMethodInspection */
+                    $entity->{$propertyName} = new $targetEntityClass($this->buildArrayOfEntities(
+                        $targetEntity,
+                        $value
+                    ));
+                    break;
+                case is_subclass_of($targetEntityClass, Enum::class):
+                    $entity->{$propertyName} = new $targetEntityClass($value);
+                    break;
+            }
+        })
+            ->build($this->entityClass, $result);
     }
 }
