@@ -200,7 +200,7 @@ class Caller
      */
     protected function buildEntities(array $result)
     {
-        return (new EntityBuilder([Model::class]))
+        return (new EntityBuilder([Model::class], true))
             ->customFillProperty(function (object $entity, string $propertyName, string $targetEntityClass, $value) {
             switch (true) {
                 case is_subclass_of($targetEntityClass, ArrayOfModel::class):
